@@ -37,8 +37,9 @@ export class NbaService {
     );
   }
 
-  getAllTeams(): Observable<Team[]>{
+  getAllTeams(singlePage: boolean = true): Observable<Team[]>{
     let firstPage$ = this.getAllTeamsPerPage(1);
+    if(singlePage) return firstPage$;
     let secondPage$ = this.getAllTeamsPerPage(2);
     return forkJoin(firstPage$, secondPage$).pipe(
       map(([first, second]) => [...first, ...second])

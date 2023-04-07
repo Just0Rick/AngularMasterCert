@@ -12,6 +12,8 @@ export class GameStatsComponent {
 
   teams$: Observable<Team[]>;
   allTeams: Team[] = [];
+  conferences: string[] = [];
+  divisions: string[] = [];
 
   constructor(protected nbaService: NbaService) {
     this.teams$ = nbaService.getAllTeams().pipe(
@@ -21,8 +23,20 @@ export class GameStatsComponent {
         return 0;
       })),
       tap(data => this.allTeams = data),
-      tap(data => console.log(data)),
-      tap(data => console.log(data.filter(x => x.id > 29 && x.city)))
+      tap(data => {
+        let temp: string[] = [];
+        data.forEach(x => {
+          if(temp.indexOf(x.conference) == -1) temp.push(x.conference);
+        });
+        this.conferences = temp;
+      }),
+      tap(data => {
+        let temp: string[] = [];
+        data.forEach(x => {
+          if(temp.indexOf(x.division) == -1) temp.push(x.division)
+        });
+        this.divisions = temp;
+      })
     );
   }
 

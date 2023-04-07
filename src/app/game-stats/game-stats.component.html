@@ -5,9 +5,24 @@
         {{team.full_name}}
       </option>
     </select>
+    <select [value]="0">
+      <option [value]="0">
+        all
+      </option>
+      <option *ngFor="let conf of conferences;let idx = index" [value]="idx + 1">
+        {{conf}}
+      </option>
+    </select>
+    <select>
+      <option [value]="0">
+        all
+      </option>
+      <option *ngFor="let div of divisions;let idx = index" [value]="idx + 1">
+        {{div}}
+      </option>
+    </select>
     <button class="primary" (click)="trackTeam(teamSelect.value)">Track team</button>
   </div>
-
 </div>
 <div class="row">
   <app-team-stats class="col-sm-4" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
