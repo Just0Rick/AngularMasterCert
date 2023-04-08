@@ -5,7 +5,7 @@
         all
       </option>
       <option *ngFor="let conf of conferences;let idx = index" [value]="idx + 1">
-        {{conf}} Conference
+        {{conf}}ern Conference
       </option>
     </select>
     <select [(ngModel)]="selectedDivision" (change)="onDivisionChange()">
@@ -26,6 +26,5 @@
 </div>
 <div class="row">
   <app-team-stats class="col-sm-4" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
-
   </app-team-stats>
 </div>

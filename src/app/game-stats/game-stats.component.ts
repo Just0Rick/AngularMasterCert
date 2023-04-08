@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Team} from '../data.models';
-import {filter, map, Observable, tap} from 'rxjs';
+import { map, Observable, tap} from 'rxjs';
 import {NbaService} from '../nba.service';
 
 @Component({
@@ -8,7 +8,7 @@ import {NbaService} from '../nba.service';
   templateUrl: './game-stats.component.html',
   styleUrls: ['./game-stats.component.css']
 })
-export class GameStatsComponent {
+export class GameStatsComponent{
 
   teams$: Observable<Team[]>;
   allTeams: Team[] = [];
