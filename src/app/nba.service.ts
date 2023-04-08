@@ -33,7 +33,7 @@ export class NbaService {
     return this.http.get<{data: Team[]}>(`${this.API_URL}/teams?page=${pageNumber}`,
       {headers: this.headers}).pipe(
       map(res => res.data),
-      shareReplay()
+      shareReplay(1, 3000)
     );
   }
 
