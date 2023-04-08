@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationDialogAction, ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { DialogService } from './dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,9 @@ import { ConfirmationDialogAction, ConfirmationDialogComponent } from './confirm
 export class AppComponent implements OnInit{
   @ViewChild(ConfirmationDialogComponent, { static: true}) confDialog!: ConfirmationDialogComponent;
 
-  dialogActions: ConfirmationDialogAction[] = [
-    {
-      text: 'No',
-      buttonStyle: 'default',
-      delegate: (reference) => reference.closeDialog()
-    },
-    {
-      text: 'Yes',
-      buttonStyle: 'secondary',
-      delegate: (reference) => reference.closeDialog()
-    }
-  ];
+  constructor(private dialogService: DialogService) { }
 
   ngOnInit(): void {
-    this.confDialog.openDialog();
+    this.dialogService.registerDialog(this.confDialog);
   }
 }

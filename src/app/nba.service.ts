@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {concat, concatAll, forkJoin, map, mergeAll, Observable, shareReplay, zip} from 'rxjs';
 import { format, subDays } from 'date-fns';
 import {Game, Stats, Team} from './data.models';
+import { DialogService } from './dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,30 @@ export class NbaService {
   private API_URL = "https://free-nba.p.rapidapi.com";
   trackedTeams: Team[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialogService: DialogService) { }
 
   addTrackedTeam(team: Team): void {
     this.trackedTeams.push(team);
   }
 
   removeTrackedTeam(team: Team): void {
-    let index = this.trackedTeams.findIndex(t => t.id == team.id);
-    this.trackedTeams.splice(index, 1);
+    this.dialogService.setActions([
+      {
+        text: 'No',
+        buttonStyle: 'default',
+        delegate: (reference) => reference.closeDialog()
+      },
+      {
+        text: 'Yes',
+        buttonStyle: 'secondary',
+        delegate: (reference) => {
+          let index = this.trackedTeams.findIndex(t => t.id == team.id);
+          this.trackedTeams.splice(index, 1);
+          reference.closeDialog();
+        }
+      }
+    ]);
+    this.dialogService.openDialog();
   }
 
   getTrackedTeams(): Team[] {
