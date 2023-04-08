@@ -50,8 +50,14 @@ export class GameStatsComponent {
       })),
       tap(x => console.log(x)),
       tap(data => {
-        if(this.selectedConference != 0 && this.selectedDivision != 0)
-        this.selectedDivision = this.divisions.indexOf(data[0].division) + 1;
+        let temp: string[] = [];
+        data.forEach(x => {
+          if(temp.indexOf(x.division) == -1) temp.push(x.division)
+        });
+        this.divisions = temp;
+        if(this.selectedConference != 0 && this.selectedDivision != 0){
+          this.selectedDivision = this.divisions.indexOf(data[0].division) + 1;
+        }
       }),
       tap(data => this.allTeams = data)
     );
