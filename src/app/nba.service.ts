@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {concat, concatAll, forkJoin, map, mergeAll, Observable, shareReplay, zip} from 'rxjs';
+import { forkJoin, map, Observable, shareReplay } from 'rxjs';
 import { format, subDays } from 'date-fns';
 import {Game, Stats, Team} from './data.models';
 import { DialogService } from './dialog.service';
