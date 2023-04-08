@@ -25,6 +25,14 @@
   </div>
 </div>
 <div class="row">
-  <app-team-stats class="col-sm-4" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team">
+  <div class="col-sm-11">
+    <p>How many days to track?</p>
+    <select [(ngModel)]="trackedDays">
+      <option [value]="op" *ngFor="let op of availableDays">{{op}} days</option>
+    </select>
+  </div>
+</div>
+<div class="row">
+  <app-team-stats class="col-sm-4" *ngFor="let team of nbaService.getTrackedTeams()" [team]="team" [daysTracked]="trackedDays">
   </app-team-stats>
 </div>

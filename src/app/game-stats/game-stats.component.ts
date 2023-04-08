@@ -18,6 +18,9 @@ export class GameStatsComponent{
   bckDivisions: string[] = [];
   selectedDivision: number = 0;
 
+  trackedDays: number = 12;
+  availableDays: number[] = [6, 8, 10, 12, 14, 16, 18, 20];
+
   constructor(protected nbaService: NbaService) {
     this.teams$ = nbaService.getAllTeams().pipe(
       map(data => data.sort((a, b) => {

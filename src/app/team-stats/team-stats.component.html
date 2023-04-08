@@ -8,22 +8,22 @@
     <div class="row">
       <div class="col-sm-6">
         <p>
-          Results of past 12 days:
+          Results of past {{daysTracked}} days:
         </p>
-        <p>
+        <div class="ts-record">
           <mark class="tag" *ngFor="let result of stats.lastGames" [class]="result">{{result}}</mark>
-        </p>
+        </div>
         <p>Avg pts scored: <strong>{{stats.averagePointsScored}}</strong> </p>
         <p>Avg pts conceded: <strong>{{stats.averagePointsConceded}}</strong> </p>
 
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6 ts-team-logo">
         <img src="https://interstate21.com/nba-logos/{{team.abbreviation}}.png" />
       </div>
     </div>
   </div>
   <div>
-    <button class="tertiary" [routerLink]=" 'results/'+ team.abbreviation">See game results >></button>
+    <button class="tertiary" (click)="showResults(team.abbreviation)">See game results >></button>
   </div>
 
 </div>

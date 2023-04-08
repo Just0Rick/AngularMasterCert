@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NbaService} from '../nba.service';
 import {Game, Team} from '../data.models';
 import {Observable} from 'rxjs';
@@ -12,13 +12,16 @@ import {Observable} from 'rxjs';
 export class GameResultsComponent {
 
   team?: Team;
+  daysTracked?: number;
   games$?: Observable<Game[]>;
 
-  constructor(private activatedRoute: ActivatedRoute, private nbaService: NbaService) {
+  constructor(private activatedRoute: ActivatedRoute, private nbaService: NbaService, private router: Router) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
         this.team = this.nbaService.getTrackedTeams().find(team => team.abbreviation === paramMap.get("teamAbbr"));
-        if (this.team)
-          this.games$ = this.nbaService.getLastResults(this.team);
+        this.daysTracked = Number(paramMap.get("daysTracked") || 12);
+        if (this.team){
+          this.games$ = this.nbaService.getLastResults(this.team, this.daysTracked);
+        }
     })
   }
 

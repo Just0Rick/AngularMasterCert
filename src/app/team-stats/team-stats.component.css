@@ -24,3 +24,14 @@ mark {
 .card {
   max-width: 100%;
 }
+
+.ts-record{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ts-team-logo{
+  display: flex;
+  align-items: center;
+}
