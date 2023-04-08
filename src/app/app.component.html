@@ -1,7 +1,7 @@
 <h1>NBA Score Tracking App</h1>
 <div class="container">
   <router-outlet></router-outlet>
-  <app-confirmation-dialog>
+  <app-confirmation-dialog [name]="dialogName">
     <p>Are you sure you want to remove this team?</p>
   </app-confirmation-dialog>
 </div>

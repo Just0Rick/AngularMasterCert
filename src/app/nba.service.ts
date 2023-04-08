@@ -4,6 +4,7 @@ import {concat, concatAll, forkJoin, map, mergeAll, Observable, shareReplay, zip
 import { format, subDays } from 'date-fns';
 import {Game, Stats, Team} from './data.models';
 import { DialogService } from './dialog.service';
+import { AppComponent } from './app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class NbaService {
   }
 
   removeTrackedTeam(team: Team): void {
-    this.dialogService.setActions([
+    this.dialogService.setActions(AppComponent.DIALOG_NAME,[
       {
         text: 'No',
         buttonStyle: 'default',
@@ -38,7 +39,7 @@ export class NbaService {
         }
       }
     ]);
-    this.dialogService.openDialog();
+    this.dialogService.openDialog(AppComponent.DIALOG_NAME);
   }
 
   getTrackedTeams(): Team[] {
@@ -67,7 +68,7 @@ export class NbaService {
     return this.http.get<{meta: any, data: Game[]}>(`${this.API_URL}/games?page=0${this.getDaysQueryString(numberOfDays)}`,
       {headers: this.headers, params: {per_page: 12, "team_ids[]": ""+team.id}}).pipe(
         map(res => res.data),
-        shareReplay()
+        shareReplay(1, 3000)
     );
   }
 

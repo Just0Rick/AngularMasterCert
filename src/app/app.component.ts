@@ -10,7 +10,12 @@ import { DialogService } from './dialog.service';
 export class AppComponent implements OnInit{
   @ViewChild(ConfirmationDialogComponent, { static: true}) confDialog!: ConfirmationDialogComponent;
 
-  constructor(private dialogService: DialogService) { }
+  public static DIALOG_NAME = "DeleteConfirmationDialog";
+  public dialogName: string = "";
+  
+  constructor(private dialogService: DialogService) { 
+    this.dialogName = AppComponent.DIALOG_NAME;
+  }
 
   ngOnInit(): void {
     this.dialogService.registerDialog(this.confDialog);

@@ -5,26 +5,30 @@ import { ConfirmationDialogAction, ConfirmationDialogComponent } from './confirm
   providedIn: 'root'
 })
 export class DialogService {
-  private dialog?: ConfirmationDialogComponent = undefined;
+  private dialogs: ConfirmationDialogComponent[] = [];
   constructor() { }
 
   registerDialog(dialog: ConfirmationDialogComponent){
-    this.dialog = dialog;
+    if(!this.dialogs.find(x => x.name == dialog.name))
+      this.dialogs.push(dialog);
   }
 
-  removeDialog(){
-    this.dialog = undefined;
+  removeDialog(name: string){
+    this.dialogs.splice(this.dialogs.findIndex(x => x.name == name), 1);
   }
 
-  openDialog(){
-    this.dialog?.openDialog();
+  openDialog(name: string){
+    let temp = this.dialogs.find(x => x.name == name);
+    if(!temp) console.log('no temp');
+    else temp.openDialog();
   }
 
-  closeDialog(){
-    this.dialog?.closeDialog();
+  closeDialog(name: string){
+    this.dialogs.find(x => x.name == name)?.closeDialog();
   }
 
-  setActions(actions: ConfirmationDialogAction[]){
-    if(this.dialog) this.dialog.buttonArray = actions;
+  setActions(name:string, actions: ConfirmationDialogAction[]){
+    let dialog = this.dialogs.find(x => x.name == name);
+    if(dialog) dialog.buttonArray = actions;
   }
 }
