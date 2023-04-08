@@ -15,6 +15,7 @@ export class GameStatsComponent {
   conferences: string[] = [];
   selectedConference: number = 0;
   divisions: string[] = [];
+  bckDivisions: string[] = [];
   selectedDivision: number = 0;
 
   constructor(protected nbaService: NbaService) {
@@ -38,6 +39,7 @@ export class GameStatsComponent {
           if(temp.indexOf(x.division) == -1) temp.push(x.division)
         });
         this.divisions = temp;
+        this.bckDivisions = temp;
       })
     );
   }
@@ -48,14 +50,15 @@ export class GameStatsComponent {
         if(this.selectedConference == 0) return (this.selectedDivision == 0 || x.division == this.divisions[this.selectedDivision - 1]);
         return x.conference == this.conferences[this.selectedConference - 1];
       })),
-      tap(x => console.log(x)),
       tap(data => {
         let temp: string[] = [];
         data.forEach(x => {
           if(temp.indexOf(x.division) == -1) temp.push(x.division)
         });
-        this.divisions = temp;
-        if(this.selectedConference != 0 && this.selectedDivision != 0){
+        if(this.selectedConference == 0) this.divisions = this.bckDivisions;
+        else this.divisions = temp;
+        if(this.selectedDivision != 0){
+          console.log(data[0], this.divisions);
           this.selectedDivision = this.divisions.indexOf(data[0].division) + 1;
         }
       }),
@@ -69,7 +72,6 @@ export class GameStatsComponent {
         if(this.selectedDivision == 0) return (this.selectedConference == 0 || x.conference == this.conferences[this.selectedConference - 1]);
         return x.division == this.divisions[this.selectedDivision - 1];
       })),
-      tap(x => console.log(x)),
       tap(data => {
         if(this.selectedDivision != 0 && this.selectedConference != 0)
         this.selectedConference = this.conferences.indexOf(data[0].conference) + 1;
