@@ -1,24 +1,24 @@
 <div class="row">
   <div class="col-sm-11">
-    <select #teamSelect>
-      <option [value]="team.id" *ngFor="let team of teams$ | async">
-        {{team.full_name}}
-      </option>
-    </select>
-    <select [value]="0">
+    <select [(ngModel)]="selectedConference" (change)="onConferenceChange()">
       <option [value]="0">
         all
       </option>
       <option *ngFor="let conf of conferences;let idx = index" [value]="idx + 1">
-        {{conf}}
+        {{conf}} Conference
       </option>
     </select>
-    <select>
+    <select [(ngModel)]="selectedDivision" (change)="onDivisionChange()">
       <option [value]="0">
         all
       </option>
       <option *ngFor="let div of divisions;let idx = index" [value]="idx + 1">
-        {{div}}
+        {{div}} Division
+      </option>
+    </select>
+    <select #teamSelect>
+      <option [value]="team.id" *ngFor="let team of teams$ | async">
+        {{team.full_name}}
       </option>
     </select>
     <button class="primary" (click)="trackTeam(teamSelect.value)">Track team</button>

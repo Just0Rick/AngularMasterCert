@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Team} from '../data.models';
-import {map, Observable, tap} from 'rxjs';
+import {filter, map, Observable, tap} from 'rxjs';
 import {NbaService} from '../nba.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class GameStatsComponent {
   teams$: Observable<Team[]>;
   allTeams: Team[] = [];
   conferences: string[] = [];
+  selectedConference: number = 0;
   divisions: string[] = [];
+  selectedDivision: number = 0;
 
   constructor(protected nbaService: NbaService) {
     this.teams$ = nbaService.getAllTeams().pipe(
@@ -37,6 +39,36 @@ export class GameStatsComponent {
         });
         this.divisions = temp;
       })
+    );
+  }
+
+  onConferenceChange(){
+    this.teams$ = this.nbaService.getAllTeams().pipe(
+      map(data => data.filter(x => {
+        if(this.selectedConference == 0) return (this.selectedDivision == 0 || x.division == this.divisions[this.selectedDivision - 1]);
+        return x.conference == this.conferences[this.selectedConference - 1];
+      })),
+      tap(x => console.log(x)),
+      tap(data => {
+        if(this.selectedConference != 0 && this.selectedDivision != 0)
+        this.selectedDivision = this.divisions.indexOf(data[0].division) + 1;
+      }),
+      tap(data => this.allTeams = data)
+    );
+  }
+
+  onDivisionChange(){
+    this.teams$ = this.nbaService.getAllTeams().pipe(
+      map(data => data.filter(x => {
+        if(this.selectedDivision == 0) return (this.selectedConference == 0 || x.conference == this.conferences[this.selectedConference - 1]);
+        return x.division == this.divisions[this.selectedDivision - 1];
+      })),
+      tap(x => console.log(x)),
+      tap(data => {
+        if(this.selectedDivision != 0 && this.selectedConference != 0)
+        this.selectedConference = this.conferences.indexOf(data[0].conference) + 1;
+      }),
+      tap(data => this.allTeams = data)
     );
   }
 
