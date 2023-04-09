@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import { GameResultsComponent } from './game-results/game-results.component';
 import { GameStatsComponent } from './game-stats/game-stats.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { CustomButtonComponent } from './custom-button/custom-button.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     TeamStatsComponent,
     GameResultsComponent,
     GameStatsComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CustomButtonComponent
   ],
   imports: [
     BrowserModule,

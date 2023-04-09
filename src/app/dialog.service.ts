@@ -17,10 +17,10 @@ export class DialogService {
     this.dialogs.splice(this.dialogs.findIndex(x => x.name == name), 1);
   }
 
-  openDialog(name: string){
+  openDialog(name: string, dialogData?: any){
     let temp = this.dialogs.find(x => x.name == name);
-    if(!temp) console.log('no temp');
-    else temp.openDialog();
+    if(!temp) console.log('No dialog with requested name');
+    else temp.openDialog(dialogData);
   }
 
   closeDialog(name: string){

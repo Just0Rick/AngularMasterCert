@@ -14,6 +14,8 @@ export class ConfirmationDialogComponent implements OnInit, OnDestroy{
 
   private self: HTMLElement;
 
+  public dialogData!: any;
+
   public open: boolean = false;
   constructor(private el: ElementRef){
     this.self = el.nativeElement;
@@ -27,7 +29,8 @@ export class ConfirmationDialogComponent implements OnInit, OnDestroy{
     document.body.removeChild(this.self);
   }
 
-  openDialog(){
+  openDialog(dialogData?: any){
+    if(dialogData) this.dialogData = dialogData;
     this.open = true;
   }
 

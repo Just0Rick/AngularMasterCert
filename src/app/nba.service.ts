@@ -23,23 +23,8 @@ export class NbaService {
   }
 
   removeTrackedTeam(team: Team): void {
-    this.dialogService.setActions(AppComponent.DIALOG_NAME,[
-      {
-        text: 'No',
-        buttonStyle: 'default',
-        delegate: (reference) => reference.closeDialog()
-      },
-      {
-        text: 'Yes',
-        buttonStyle: 'secondary',
-        delegate: (reference) => {
-          let index = this.trackedTeams.findIndex(t => t.id == team.id);
-          this.trackedTeams.splice(index, 1);
-          reference.closeDialog();
-        }
-      }
-    ]);
-    this.dialogService.openDialog(AppComponent.DIALOG_NAME);
+    let index = this.trackedTeams.findIndex(t => t.id == team.id);
+    if(index != -1) this.trackedTeams.splice(index, 1);
   }
 
   getTrackedTeams(): Team[] {

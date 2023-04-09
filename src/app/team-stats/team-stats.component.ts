@@ -3,6 +3,8 @@ import {Observable, tap} from 'rxjs';
 import {NbaService} from '../nba.service';
 import {Game, Stats, Team} from '../data.models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from '../dialog.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-team-stats',
@@ -22,7 +24,8 @@ export class TeamStatsComponent implements OnInit, OnChanges {
   constructor(
     protected nbaService: NbaService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private dialogService: DialogService) { }
 
   updateGameResults(){
     this.games$ = this.nbaService.getLastResults(this.team, this.daysTracked).pipe(
@@ -40,5 +43,9 @@ export class TeamStatsComponent implements OnInit, OnChanges {
 
   showResults(teamAbbr: string){
     this.router.navigate(['results', teamAbbr, this.daysTracked], { relativeTo: this.activatedRoute });
+  }
+
+  onDeleteAttempt(team: Team){
+    this.dialogService.openDialog(AppComponent.DIALOG_NAME, team);
   }
 }
