@@ -7,6 +7,7 @@
             <button type="button" *ngFor="let btn of buttonArray" [ngClass]="btn.buttonStyle" (click)="btn.delegate(this, $event)">
                 {{btn.text}}
             </button>
+            <ng-content select="[btnsection]"></ng-content>
         </div>
     </div>
 </div>
