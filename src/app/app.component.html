@@ -5,10 +5,10 @@
     <p>Are you sure you want to remove this team?</p>
     <div btnsection>
       <app-custom-button class="default" (onAction)="onNoClick()">
-        No
+        <fa-icon [icon]="banIcon"></fa-icon> No
       </app-custom-button>
       <app-custom-button class="secondary" (onAction)="onYesClick()">
-        Yes
+        <fa-icon [icon]="checkIcon"></fa-icon> Yes
       </app-custom-button>
     </div>
   </app-confirmation-dialog>
